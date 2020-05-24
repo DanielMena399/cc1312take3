@@ -15,8 +15,31 @@ fn main() -> ! {
     let peripherals = Peripherals::take().unwrap();
         // application logic
     
-   
+        // PRCM::pdctl0::periph_on - Needs to be set to one/set_bit
+peripherals.PRCM.pdctl0.modify(|_r,w|{
+    w.periph_on().set_bit();
+    w
+
+});
+        // PRCM::gpioclkgr::clk_en - Needs to be set to one/set_bit
+peripherals.PRCM.gpioclkgr.modify(|_r,w|{
+    w.clk_en().set_bit();
+    w
+});
+        // PRCM::clkloadctl::load - Needs to be set to one/set_bit
+peripherals.PRCM.clkloadctl.modify(|_r,w|{
+    w.load().set_bit();
+    w
+});
+        // WAIT, until PRCM::clkloadct::load_done IS 1/bit_is_se
+       loop {
         
+        let done = peripherals.PRCM.clkloadctl.read().load_done().bit_is_set();
+        
+        if done { 
+            break;
+        }
+       } 
 //    let peripherals.GPIO.dout7_4.write(|w|)
 // So your steps are basically:
 
