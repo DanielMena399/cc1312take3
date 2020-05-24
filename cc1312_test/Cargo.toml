@@ -1,0 +1,26 @@
+[package]
+name = "cc1312-test"
+version = "0.1.0"
+authors = ["Stian Eklund <stian.eklund@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+volatile-register = "0.1.2"
+cortex-m-rt = "0.6.12"
+cc1312 = { path = "../cc1312" }
+panic-halt = "0.2.0"
+cortex-m = "0.6.0"
+
+[profile.release]
+# Improved optimizations
+lto = "fat"
+codegen-units = 1
+opt-level = "s"
+panic = "abort"
+
+[profile.dev]
+opt-level = "s"
+debug = true
+panic = "abort"
