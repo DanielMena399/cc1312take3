@@ -1,0 +1,18 @@
+[package]
+name = "cc1312"
+version = "0.1.0"
+authors = ["Change Me"]
+edition = "2018"
+
+
+[dependencies]
+bare-metal = "0.2.5"
+cortex-m = "0.6.2"
+vcell = "0.1.0"
+
+[dependencies.cortex-m-rt]
+optional = true
+version = "0.6.5"
+
+[features]
+rt = ["cortex-m-rt/device"]
